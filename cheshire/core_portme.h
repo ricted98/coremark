@@ -34,8 +34,10 @@ Original Author: Shay Gal-on
 /* Configuration : HAS_FLOAT
         Define to 1 if the platform supports floating point.
 */
-#ifndef HAS_FLOAT
+#ifdef __riscv_flen
 #define HAS_FLOAT 1
+#else
+#define HAS_FLOAT 0
 #endif
 /* Configuration : HAS_TIME_H
         Define to 1 if platform has the time.h header file,
@@ -97,7 +99,11 @@ typedef signed int     ee_s32;
 typedef float          ee_f32;
 typedef double         ee_f64;
 typedef unsigned char  ee_u8;
+#if (__riscv_xlen == 64)
+typedef int32_t        ee_u32;
+#else
 typedef unsigned int   ee_u32;
+#endif
 typedef unsigned long  ee_u64;
 typedef ee_u64         ee_ptr_int;
 typedef ee_u64         ee_size_t;

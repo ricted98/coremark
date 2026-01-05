@@ -30,8 +30,17 @@ LD		= riscv64-unknown-elf-ld
 AS		= riscv64-unknown-elf-as
 # Flag : CFLAGS
 #	Use this flag to define compiler options. Note, you can add compiler options from the command line using XCFLAGS="other flags"
-PORT_CFLAGS = -O2 -march=rv64imafdc_zifencei -mabi=lp64d -Wall -Wextra -mcmodel=medany -fno-builtin-printf
-FLAGS_STR = "$(PORT_CFLAGS) $(XCFLAGS) $(XLFLAGS) $(LFLAGS_END)"
+
+ifndef XLEN
+	XLEN=64
+endif
+
+ifeq ($(XLEN),32)
+	PORT_CFLAGS = -O3 -march=rv32imac_zba_zbb_zbs_zicsr_zifencei -mabi=ilp32 -Wall -Wextra -mcmodel=medany -fno-builtin-printf -funroll-all-loops -funswitch-loops -fpredictive-commoning -finline-functions -falign-functions=8 -falign-jumps=8 -falign-loops=8 
+else
+	PORT_CFLAGS = -O3 -march=rv64imafdc_zba_zbb_zbs_zicsr_zifencei -mabi=lp64d -Wall -Wextra -mcmodel=medany -fno-builtin-printf -funroll-all-loops -funswitch-loops -fpredictive-commoning -finline-functions -falign-functions=8 -falign-jumps=8 -falign-loops=8
+endif
+
 CFLAGS = $(PORT_CFLAGS) -I$(PORT_DIR) -I$(PORT_DIR)/include -I. -DFLAGS_STR=\"$(FLAGS_STR)\"
 #Flag : LFLAGS_END
 #	Define any libraries needed for linking or other flags that should come at the end of the link line (e.g. linker scripts).

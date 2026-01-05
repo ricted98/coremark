@@ -131,8 +131,9 @@ void
 portable_init(core_portable *p, int *argc, char *argv[])
 {
 
-    ee_u32 rtc_freq = *reg32(&__base_regs, CHESHIRE_RTC_FREQ_REG_OFFSET);
-    ee_u64 reset_freq = clint_get_core_freq(rtc_freq, 2500);
+    //ee_u32 rtc_freq = *reg32(&__base_regs, CHESHIRE_RTC_FREQ_REG_OFFSET);
+    //ee_u64 reset_freq = clint_get_core_freq(rtc_freq, 2500);
+    ee_u64 reset_freq = 200000000;
     uart_init(&__base_uart, reset_freq, __BOOT_BAUDRATE);
 
     (void)argc; // prevent unused warning
