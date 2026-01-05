@@ -41,6 +41,8 @@ else
 	PORT_CFLAGS = -O3 -march=rv64imafdc_zba_zbb_zbs_zicsr_zifencei -mabi=lp64d -Wall -Wextra -mcmodel=medany -fno-builtin-printf -funroll-all-loops -funswitch-loops -fpredictive-commoning -finline-functions -falign-functions=8 -falign-jumps=8 -falign-loops=8
 endif
 
+FLAGS_STR = "$(PORT_CFLAGS) $(XCFLAGS) $(XLFLAGS) $(LFLAGS_END)"
+
 CFLAGS = $(PORT_CFLAGS) -I$(PORT_DIR) -I$(PORT_DIR)/include -I. -DFLAGS_STR=\"$(FLAGS_STR)\"
 #Flag : LFLAGS_END
 #	Define any libraries needed for linking or other flags that should come at the end of the link line (e.g. linker scripts).
