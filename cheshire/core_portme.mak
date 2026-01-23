@@ -38,7 +38,7 @@ endif
 ifeq ($(XLEN),32)
 	PORT_CFLAGS = -O3 -march=rv32imac_zba_zbb_zbs_zicsr_zifencei -mabi=ilp32 -Wall -Wextra -mcmodel=medany -fno-builtin-printf -funroll-all-loops -funswitch-loops -fpredictive-commoning -finline-functions -falign-functions=8 -falign-jumps=8 -falign-loops=8 
 else
-	PORT_CFLAGS = -O3 -march=rv64imafdc_zba_zbb_zbs_zicsr_zifencei -mabi=lp64d -Wall -Wextra -mcmodel=medany -fno-builtin-printf -funroll-all-loops -funswitch-loops -fpredictive-commoning -finline-functions -falign-functions=8 -falign-jumps=8 -falign-loops=8
+    PORT_CFLAGS = -O3 -march=rv64imafdc_zba_zbb_zbs_zicsr_zifencei -mabi=lp64d -Wall -Wextra -mcmodel=medany -fno-builtin-printf -funroll-all-loops -funswitch-loops -fgcse-after-reload -fpredictive-commoning -mtune=sifive-7-series -finline-functions -fipa-cp-clone -falign-functions=8 -falign-jumps=8 -falign-loops=8 --param max-inline-insns-auto=20
 endif
 
 FLAGS_STR = "$(PORT_CFLAGS) $(XCFLAGS) $(XLFLAGS) $(LFLAGS_END)"
