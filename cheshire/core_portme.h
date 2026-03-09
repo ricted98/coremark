@@ -34,7 +34,7 @@ Original Author: Shay Gal-on
 /* Configuration : HAS_FLOAT
         Define to 1 if the platform supports floating point.
 */
-#ifdef __riscv_flen
+#if (__riscv_flen == 64)
 #define HAS_FLOAT 1
 #else
 #define HAS_FLOAT 0
